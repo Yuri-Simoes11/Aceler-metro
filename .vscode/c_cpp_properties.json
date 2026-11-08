@@ -14,6 +14,7 @@
                 "C:/Users/Users/.platformio/packages/framework-zephyr/include",
                 "C:/Users/Users/Documents/PlatformIO/Projects/261108-104747-zephyr-MICRO2-Acelerometro/.pio/build/frdm_kl25z/zephyr/include/generated",
                 "C:/Users/Users/.platformio/packages/framework-zephyr/soc/nxp/kinetis",
+                "C:/Users/Users/.platformio/packages/framework-zephyr/lib/libc/newlib/include",
                 "C:/Users/Users/.platformio/packages/framework-zephyr/soc/nxp/kinetis/kl2x",
                 "C:/Users/Users/.platformio/packages/framework-zephyr/soc/nxp/kinetis/common",
                 "C:/Users/Users/.platformio/packages/framework-zephyr/_pio/modules/hal/cmsis/CMSIS/Core/Include",
@@ -22,6 +23,7 @@
                 "C:/Users/Users/.platformio/packages/framework-zephyr/_pio/modules/hal/nxp/mcux/mcux-sdk/devices/MKL25Z4",
                 "C:/Users/Users/.platformio/packages/framework-zephyr/_pio/modules/hal/nxp/mcux/mcux-sdk/devices/MKL25Z4/drivers",
                 "C:/Users/Users/.platformio/packages/framework-zephyr/_pio/modules/hal/nxp/mcux/mcux-sdk-ng/drivers/common",
+                "C:/Users/Users/.platformio/packages/framework-zephyr/_pio/modules/hal/nxp/mcux/mcux-sdk-ng/drivers/i2c",
                 "C:/Users/Users/.platformio/packages/framework-zephyr/_pio/modules/hal/nxp/mcux/mcux-sdk-ng/drivers/lpsci",
                 "C:/Users/Users/.platformio/packages/framework-zephyr/_pio/modules/hal/nxp/mcux/mcux-sdk-ng/drivers/port",
                 ""
@@ -35,6 +37,7 @@
                     "C:/Users/Users/.platformio/packages/framework-zephyr/include",
                     "C:/Users/Users/Documents/PlatformIO/Projects/261108-104747-zephyr-MICRO2-Acelerometro/.pio/build/frdm_kl25z/zephyr/include/generated",
                     "C:/Users/Users/.platformio/packages/framework-zephyr/soc/nxp/kinetis",
+                    "C:/Users/Users/.platformio/packages/framework-zephyr/lib/libc/newlib/include",
                     "C:/Users/Users/.platformio/packages/framework-zephyr/soc/nxp/kinetis/kl2x",
                     "C:/Users/Users/.platformio/packages/framework-zephyr/soc/nxp/kinetis/common",
                     "C:/Users/Users/.platformio/packages/framework-zephyr/_pio/modules/hal/cmsis/CMSIS/Core/Include",
@@ -43,6 +46,7 @@
                     "C:/Users/Users/.platformio/packages/framework-zephyr/_pio/modules/hal/nxp/mcux/mcux-sdk/devices/MKL25Z4",
                     "C:/Users/Users/.platformio/packages/framework-zephyr/_pio/modules/hal/nxp/mcux/mcux-sdk/devices/MKL25Z4/drivers",
                     "C:/Users/Users/.platformio/packages/framework-zephyr/_pio/modules/hal/nxp/mcux/mcux-sdk-ng/drivers/common",
+                    "C:/Users/Users/.platformio/packages/framework-zephyr/_pio/modules/hal/nxp/mcux/mcux-sdk-ng/drivers/i2c",
                     "C:/Users/Users/.platformio/packages/framework-zephyr/_pio/modules/hal/nxp/mcux/mcux-sdk-ng/drivers/lpsci",
                     "C:/Users/Users/.platformio/packages/framework-zephyr/_pio/modules/hal/nxp/mcux/mcux-sdk-ng/drivers/port",
                     ""
@@ -54,6 +58,7 @@
                 "KERNEL",
                 "K_HEAP_MEM_POOL_SIZE=0",
                 "NDEBUG",
+                "_ANSI_SOURCE",
                 "__LINUX_ERRNO_EXTENSIONS__",
                 "__PROGRAM_START",
                 "__ZEPHYR__=1",
@@ -73,12 +78,6 @@
                 "-mfp16-format=ieee",
                 "-isystem",
                 "C:/Users/Users/.platformio/packages/framework-zephyr/lib/libc/common/include",
-                "-isystem",
-                "C:/Users/Users/Documents/PlatformIO/Projects/261108-104747-zephyr-MICRO2-Acelerometro/.pio/build/frdm_kl25z/modules/picolibc/picolibc/include",
-                "-isystem",
-                "c:/users/users/.platformio/packages/toolchain-gccarmnoneeabi/bin/../lib/gcc/arm-none-eabi/8.2.1/include",
-                "-isystem",
-                "c:/users/users/.platformio/packages/toolchain-gccarmnoneeabi/bin/../lib/gcc/arm-none-eabi/8.2.1/include-fixed",
                 ""
             ]
         }
