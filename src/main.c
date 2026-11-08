@@ -1,41 +1,59 @@
 #include <zephyr/kernel.h>
 #include <zephyr/device.h>
-#include <zephyr/drivers/gpio.h>
+#include <zephyr/drivers/sensor.h>
 
-#define SLEEP_TIME_MS 500
-
-// Define o LED usando Device Tree
-#define LED0_NODE DT_ALIAS(led0)
-
-// Verifica se o LED está definido no Device Tree
-#if DT_NODE_HAS_STATUS(LED0_NODE, okay)
-static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED0_NODE, gpios);
-#else
-#error "Unsupported board: led0 devicetree alias is not defined"
-#endif
+// Obter referência do dispositivo usando o nodelabel
+static const struct device *const accel = DEVICE_DT_GET(DT_NODELABEL(mma8451q));
 
 void main(void)
 {
+    struct sensor_value accel_x, accel_y, accel_z;
     int ret;
+    uint32_t tempo_ms = 0;  // Contador de tempo em milissegundos
 
-    // Verifica se o device está pronto
-    if (!gpio_is_ready_dt(&led)) {
-        printk("Error: LED device %s is not ready\n", led.port->name);
+    printk("\n");
+    printk("========================================\n");
+    printk("  FRDM-KL25Z - Acelerometro MMA8451Q\n");
+    printk("========================================\n");
+    printk("I2C0: PTE24 (SCL), PTE25 (SDA)\n");
+    printk("========================================\n\n");
+
+    // Verificar se o dispositivo está pronto
+    if (!device_is_ready(accel)) {
+        printk("ERRO: Acelerometro nao esta pronto!\n");
         return;
     }
 
-    // Configura o pino como saída
-    ret = gpio_pin_configure_dt(&led, GPIO_OUTPUT_ACTIVE);
-    if (ret < 0) {
-        printk("Error %d: failed to configure LED pin\n", ret);
-        return;
-    }
-
-    printk("LED blinking on %s pin %d\n", led.port->name, led.pin);
+    printk("Acelerometro inicializado com sucesso!\n");
+    printk("Iniciando leituras a cada 500ms...\n\n");
+    
+    // Pequeno delay antes de começar a enviar dados
+    k_sleep(K_MSEC(1000));
 
     while (1) {
-        // Toggle do LED usando a nova API
-        gpio_pin_toggle_dt(&led);
-        k_msleep(SLEEP_TIME_MS);
+        // Solicitar leitura do sensor
+        ret = sensor_sample_fetch(accel);
+        if (ret) {
+            printk("Erro ao ler sensor: %d\n", ret);
+            k_sleep(K_MSEC(500));
+            tempo_ms += 500;
+            continue;
+        }
+
+        // Obter valores dos eixos X, Y e Z
+        sensor_channel_get(accel, SENSOR_CHAN_ACCEL_X, &accel_x);
+        sensor_channel_get(accel, SENSOR_CHAN_ACCEL_Y, &accel_y);
+        sensor_channel_get(accel, SENSOR_CHAN_ACCEL_Z, &accel_z);
+
+        // Formato: T: tempo_ms, X: valor, Y: valor, Z: valor
+        printk("T: %u, X: %d.%06d, Y: %d.%06d, Z: %d.%06d\r\n", 
+               tempo_ms,
+               accel_x.val1, abs(accel_x.val2),
+               accel_y.val1, abs(accel_y.val2),
+               accel_z.val1, abs(accel_z.val2));
+
+        // Aguardar 500ms antes da próxima leitura
+        k_sleep(K_MSEC(500));
+        tempo_ms += 500;
     }
 }
