@@ -18,6 +18,7 @@
 #define ZONA_MORTA_ACEL 0.016
 
 static double aplicar_zona_morta(double valor) {
+
     if (valor > -ZONA_MORTA_ACEL &&
         valor < ZONA_MORTA_ACEL)
     {
