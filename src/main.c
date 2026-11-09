@@ -5,7 +5,7 @@
 
 #define INTERVALO_MS 150
 
-#define NUM_AMOSTRAS_CALIBRACAO 220
+#define NUM_AMOSTRAS_CALIBRACAO 200
 
 #define STACK_AQUISICAO 1024
 #define STACK_INTEGRACAO 1024
@@ -14,6 +14,18 @@
 #define PRIORIDADE_AQUISICAO 4
 #define PRIORIDADE_INTEGRACAO 5
 #define PRIORIDADE_SERIAL 6
+
+#define ZONA_MORTA_ACEL 0.016
+
+static double aplicar_zona_morta(double valor) {
+    if (valor > -ZONA_MORTA_ACEL &&
+        valor < ZONA_MORTA_ACEL)
+    {
+        return 0.0;
+    }
+
+    return valor;
+}
 
 static const struct device *const accel =
     DEVICE_DT_GET(DT_NODELABEL(mma8451q));
@@ -188,6 +200,9 @@ void thread_integracao_func(void *a, void *b, void *c) {
 
         // Esperar uma nova amostra
         k_msgq_get(&fila_amostras, &dado, K_FOREVER);
+        dado.ax = aplicar_zona_morta(dado.ax);
+        dado.ay = aplicar_zona_morta(dado.ay);
+        dado.az = aplicar_zona_morta(dado.az);
 
         if (primeira_amostra) {
 
